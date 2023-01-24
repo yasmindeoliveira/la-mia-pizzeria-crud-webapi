@@ -1,4 +1,5 @@
 ﻿using System.ComponentModel.DataAnnotations;
+using System.Text.Json.Serialization;
 
 namespace LaMiaPizzeriaEfPost.Models
 {
@@ -9,6 +10,7 @@ namespace LaMiaPizzeriaEfPost.Models
 
         public string Name { get; set; }
 
+        [JsonIgnore]
         public List<Pizza> Pizzas { get; set; }
 
         public Ingredient ()
