@@ -1,0 +1,40 @@
+﻿
+<div class="container">
+    <div class="row">
+        <div class="col-12">
+            <div id="articolo_container">
+            </div>
+        </div>
+    </div>
+</div>
+
+@section Scripts {
+
+        <script type="text/javascript">
+
+            const id = window.location.href.substring(window.location.href.lastIndexOf('/') + 1);
+            debugger;
+
+            axios.get(`https://localhost:7262//api/PizzaAPI/${nome}`).then((res) =>
+                    {
+                let articolo = res.data;
+                console.log('pizza ricevuta', loadPizzeApi);
+
+
+                document.getElementById('pizza_container').innerHTML +=
+                    `
+                        <div class="col-12 col-md-4 p-2">
+                            <div class="card post h-100">
+                                <img src="${loadPizzeApi.foto}" class="card-img-top" alt="...">
+                                <div class="card-body">
+                                    <h5 class="card-title">${loadPizzeApi.nome}</h5>
+                                    <p class="card-text">${loadPizzeApi.descrizione}</p>
+                                </div>
+                            </div>
+                        </div>
+                    `;
+
+            });
+
+        </script>
+}
