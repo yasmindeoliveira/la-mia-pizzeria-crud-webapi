@@ -6,7 +6,7 @@ using Microsoft.EntityFrameworkCore;
 
 namespace LaMiaPizzeriaEfPost.Controllers
 {
-    [Route("api/[controller]/[Action]")]
+    [Route("api/[controller]/[action]")]
     [ApiController]
     public class PizzaAPIController : ControllerBase
     {

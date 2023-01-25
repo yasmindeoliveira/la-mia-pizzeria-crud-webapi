@@ -24,6 +24,11 @@ namespace LaMiaPizzeriaModel.Controllers
    
         }
 
+        public IActionResult Details()
+        {
+            return View();
+        }
+
         public IActionResult Dettagli(string nome)
         {
             using (PizzaContext db = new PizzaContext())

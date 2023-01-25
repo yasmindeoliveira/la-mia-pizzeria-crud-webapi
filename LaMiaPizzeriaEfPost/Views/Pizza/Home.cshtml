@@ -9,8 +9,8 @@
 
                 <h1 class="mt-3 mb-3">Le nostre pizze</h1>
 
-                <form id="input_search" class="d-flex" role="search">
-                        <input class="form-control me-2" type="search" placeholder="Search" aria-label="Search">
+                <form class="d-flex" role="search">
+                        <input id="input_search" class="form-control me-2" type="search" placeholder="Search" aria-label="Search">
                         <button class="btn btn-outline-success" type="submit">Search</button>
                 </form>
                 
@@ -48,18 +48,18 @@
 
         function searchPizzas() {
             let ricerca = document.getElementById('input_search').value;
-
+            console.log(ricerca);
             loadPizzeApi(ricerca);
         }
 
         function loadPizzeApi(searchPizza) {
             
-            axios.get('/api/PizzaAPI', {
+            axios.get('/api/PizzaAPI/get', {
                 params: {
                     search: searchPizza
                 }
             }
-            ).them((res) => {
+            ).then((res) => {
 
                 console.log('Risultato ok');
                 console.log(res);
@@ -72,22 +72,34 @@
 
                     document.getElementById('contenitore_pizze').innerHTML = '';
 
-                    res.data.forEach(pizze => {
+                    res.data.forEach(pizza => {
 
-                        console.log('pizze: ', pizze);
+                        console.log('pizze: ', pizza);
 
                         document.getElementById('contenitore_pizze').innerHTML +=
                             `
-                            <div class="col-12 col-md-4 p-2">
-                                <div class="card pizza h-100">
-                                        <a href="/Pizza/Details/${loadPizzeApi.nome}">
-                                    <div class="card-body">
-                                        <h5 class="card-title">${loadPizzeApi.nome}</h5>
-                                        <p class="card-text">${loadPizzeApi.descrizione}</p>
+                                <div class="card  mycard m-4" style="width: 24rem;">
+
+                                    <img src=${pizza.foto} class="card-img-top p-2" alt="${pizza.nome}">
+
+                                    <div class="card-body body-card text-tabella">
+
+                                        <h5 class="card-title title-card">${pizza.nome}</h5>
+                                        <p class="card-text">${pizza.descrizione}</p>
+                                        <p class="card-text" style="color: darkred">${pizza.prezzo} $</p>
+
                                     </div>
-                                </a>
+
+                                        <div class="bottoni-action">
+                                            <a class="btn btn-primary m-3" href="/Pizza/Details/${pizza.nome}" role="button">
+
+                                                <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-activity">
+                                                    <path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z"></path><circle cx="12" cy="12" r="3"></circle></svg>
+
+                                            </a>
+                                        </div>
+
                                 </div>
-                            </div>
                             `;
                         
                     });
@@ -99,7 +111,7 @@
                 }
 
                 document.getElementById('spinner-grower').classList.add('d-none');
-            }].catch((error) =>{
+            }).catch((error) =>{
                 console.log(error)
             });
 
