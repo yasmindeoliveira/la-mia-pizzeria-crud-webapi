@@ -38,7 +38,7 @@ namespace LaMiaPizzeriaEfPost.Controllers
 
             using(PizzaContext db = new PizzaContext())
             {
-                Pizza pizzaApi = db.Pizzas.Where(pizzaApi => pizzaApi.nome == nome).FirstOrDefault();
+                Pizza pizzaApi = db.Pizzas.Where(pizzaApi => pizzaApi.nome == nome).Include(pizza => pizza.Ingredients).Include(pizza => pizza.Category).FirstOrDefault();
 
                 if(pizzaApi == null)
                 {

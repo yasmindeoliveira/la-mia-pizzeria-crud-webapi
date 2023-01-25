@@ -1,40 +1,75 @@
 ﻿
-<div class="container">
-    <div class="row">
-        <div class="col-12">
             <div id="pizza_container">
             </div>
-        </div>
-    </div>
-</div>
+
 
 @section Scripts {
 
-        <script type="text/javascript">
+            <script type="text/javascript">
 
-            const nome = window.location.href.substring(window.location.href.lastIndexOf('/') + 1);
-            debugger;
+                const nome = window.location.href.substring(window.location.href.lastIndexOf('/') + 1);
+                
 
-               axios.get(`https://localhost:7262/api/PizzaAPI/GetDetails/${nome}`).then((res) =>
-                    {
-                let pizze = res.data;
-                console.log('pizza ricevuta', pizze);
+                   axios.get(`https://localhost:7262/api/PizzaAPI/GetDetails/${nome}`).then((res) =>
+                        {
+                    let pizze = res.data;
+                    console.log('pizza ricevuta', pizze);
 
+                    let stringaIngredienti = "";
 
-                document.getElementById('pizza_container').innerHTML +=
-                    `
-                        <div class="col-12 col-md-4 p-2">
-                            <div class="card post h-100">
-                                <img src="${pizze.foto}" class="card-img-top" alt="...">
-                                <div class="card-body">
-                                    <h5 class="card-title">${pizze.nome}</h5>
-                                    <p class="card-text">${pizze.descrizione}</p>
+                    pizze.ingredients.forEach (ingredient =>{
+                        stringaIngredienti +=
+                        `
+                            <p>${ingredient.name}</p>
+                        `
+                    })           
+                        debugger;
+                    document.getElementById('pizza_container').innerHTML +=
+                        `
+
+                            <div class="container">
+                                <div class="row justify-content-end">
+                                    <div class="col-7 bg-tabella body-card">
+
+                                        <div class="d-flex align-items-center">
+                                            <h1 class="mt-3 mb-3">Dettagli pizza</h1>
+                                        </div>
+
+                                        <div class="post-single-image-container">
+                                            <img src="${pizze.foto}" class="myimg">
+                                        </div>
+
+                                            <p>
+                                                <strong>Categoria:</strong>
+                                                ${pizze.category.categoria}
+                                            </p>
+
+                                            <p>
+                                                <strong>Ingredienti:</strong>
+                                                ${stringaIngredienti}
+                                            </p>
+
+                                            <p>
+                                                <strong>Pizza:</strong>
+                                                ${pizze.nome}
+                                            </p>
+
+                                            <p>
+                                                <strong>Descrizione:</strong>
+                                                ${pizze.descrizione}
+                                            </p>
+
+                                            <p>
+                                                <strong>Prezzo:</strong>
+                                                ${pizze.prezzo} $
+                                            </p>
+
+                                    </div>
                                 </div>
                             </div>
-                        </div>
-                    `;
+                        `;
 
-            });
+                });
 
-        </script>
+            </script>
 }
