@@ -6,7 +6,7 @@ using Microsoft.Extensions.Hosting;
 
 namespace LaMiaPizzeriaEfPost.Database
 {
-    public class PizzaContext : DbContext
+    public class PizzaContext : IdentityDbContext<IdentityUser>
     {
         public DbSet<Pizza> Pizzas { get; set; }
 

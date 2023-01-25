@@ -1,6 +1,7 @@
 ﻿using LaMiaPizzeriaEfPost.Database;
 using LaMiaPizzeriaEfPost.Models;
 using LaMiaPizzeriaEfPost.Utils;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
@@ -14,6 +15,8 @@ namespace LaMiaPizzeriaModel.Controllers
         {
             return View(); 
         }
+
+        [Authorize]
         public IActionResult Index()
         {
             using (PizzaContext db = new PizzaContext())
@@ -45,6 +48,7 @@ namespace LaMiaPizzeriaModel.Controllers
             
         }
 
+        [Authorize]
         [HttpGet]
         public IActionResult Create()
         {
@@ -59,6 +63,7 @@ namespace LaMiaPizzeriaModel.Controllers
             return View("Create", Modello);
         }
 
+        [Authorize]
         [HttpPost]
         [ValidateAntiForgeryToken]
         public IActionResult Create(CategoryPizzaView formData)
@@ -98,6 +103,7 @@ namespace LaMiaPizzeriaModel.Controllers
             return RedirectToAction("Index");
         }
 
+        [Authorize]
         [HttpGet]
         public IActionResult Update(string nome)
         {
@@ -133,6 +139,7 @@ namespace LaMiaPizzeriaModel.Controllers
 
         }
 
+        [Authorize]
         [HttpPost]
         [ValidateAntiForgeryToken]
         public IActionResult Update(CategoryPizzaView formData)
@@ -185,6 +192,7 @@ namespace LaMiaPizzeriaModel.Controllers
 
         }
 
+        [Authorize]
         [HttpPost]
         public IActionResult Remove(string nome)
         {
